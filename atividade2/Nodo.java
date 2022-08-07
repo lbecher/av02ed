@@ -1,21 +1,21 @@
 public class Nodo {
-  private int valor;
-  private Nodo proximo;
+	private Dado dado;
+	private Nodo proximo;
 
-  public Nodo(int valor, Nodo proximo) {
-    this.valor = valor;
-    this.proximo = proximo;
-  }
+	public Nodo(Dado dado, Nodo proximo) {
+		this.dado = dado;
+		this.proximo = proximo;
+	}
 
-  public void set_proximo(Nodo proximo) {
-    this.proximo = proximo;
-  }
+	public void set_proximo(Nodo proximo) {
+		this.proximo = proximo;
+	}
 
-  public int get_valor() {
-    return this.valor;
-  }
+	public Dado get_dado() {
+		return this.dado;
+	}
 
-  public Nodo get_proximo() {
-    return this.proximo;
-  }
+	public Nodo get_proximo() {
+		return this.proximo;
+	}
 }
