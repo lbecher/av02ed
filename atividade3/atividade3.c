@@ -29,8 +29,7 @@ int main() {
 }
 
 void ordenacao_shellsort(int *a, int size) {
-  int i, j, aux;
-  int h = 1;
+  int i, j, h = 1, aux;
 
   //define quantas posições h 
   do {
