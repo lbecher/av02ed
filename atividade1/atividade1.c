@@ -12,7 +12,7 @@ Grafo cria(int max) {
   return gr;
 }
 
-void insere_conexao(Grafo gr, int vertice1, int vertice2, float peso) {
+void insere_conexao(Grafo gr, tipo_vertice vertice1, tipo_vertice vertice2, float peso) {
   no *p;
   for (p = gr->conexao[vertice1]; p != NULL; p = p->proximo) {
     if (p->nome_vertice == vertice2)
@@ -40,7 +40,8 @@ void imprime(Grafo gr) {
 
 int main() {
   Grafo *gr;
-  int escolha = 0, max, i, v1, v2;
+  int escolha = 0, max, i;
+  tipo_vertice v1, v2;
   float peso;
   printf("Inicializando o grafo!\nQual o número máximo de vértices do seu "
          "grafo?\n");
