@@ -1,142 +1,139 @@
-import java.util.List;
-import java.util.ArrayList;
-
 public class Lista {
-  public List<Nodo> lista;
+	
+	private Nodo cabeca;
+	private int tamanho;
+	
+	public Lista() {
+		this.cabeca = null;
+		this.tamanho = 0;
+	}
 
-  public void adiciona_no_inicio(int valor) {
-    Nodo novo = new Nodo(valor, null);
-    if (this.lista == null) {
-      this.lista = new ArrayList<Nodo>();
-      this.lista.add(novo);
-    } else {
-      novo.set_proximo(this.lista.get(0));
-      this.lista.add(0, novo);
-    }
-  }
+	public void adiciona_no_inicio(Dado dado) {
+		Nodo novo = new Nodo(dado, null);
 
-  public void adiciona_no_fim(int valor) {
-    Nodo novo = new Nodo(valor, null);
-    if (this.lista == null) {
-      this.lista = new ArrayList<Nodo>();
-      this.lista.add(novo);
-    } else {
-      Nodo atual = this.lista.get(0);
-      Nodo proximo = this.lista.get(0);
-      while (proximo != null) {
-        atual = proximo;
-        proximo = proximo.get_proximo();
-      }
-      atual.set_proximo(novo);
-      this.lista.add(novo);
-    }
-  }
+		if (this.tamanho == 0) {
+			this.cabeca = novo;
+			this.tamanho = 1;
+		} else {
+			novo.set_proximo(this.cabeca);
+			this.cabeca = novo;
+			this.tamanho++;
+		}
+	}
 
-  public void adiciona_na_posicao(int i, int valor) {
-    Nodo novo = new Nodo(valor, null);
-    if (this.lista == null) {
-      System.out.printf("Lista não inicializada!\nAdicionando como primeiro elemento!\n");
-      this.lista = new ArrayList<Nodo>();
-      this.lista.add(novo);
-    } else if (i > this.lista.size() || i < 0) {
-      System.out.printf("Posição fora do comprimento da lista!\n");
-    } else if (i == 0) {
-      this.adiciona_no_inicio(valor);
-    } else {
-      Nodo atual = this.lista.get(0);
-      Nodo proximo = this.lista.get(1);
-      for (int j = 1; j < i; j++) {
-        atual = proximo;
-        proximo = proximo.get_proximo();
-      }
-      atual.set_proximo(novo);
-      novo.set_proximo(proximo);
-      this.lista.add(i, novo);
-    }
-  }
+	public void adiciona_no_fim(Dado dado) {
+		Nodo novo = new Nodo(dado, null);
 
-  public int remove_do_inicio() {
-    if (this.lista == null) {
-      System.out.printf("Lista não inicializada!\n");
-      return -1;
-    } else {
-      Nodo nodo = this.lista.get(0);
-      this.lista.remove(0);
-      return nodo.get_valor();
-    }
-  }
+		if (this.tamanho == 0) {
+			this.cabeca = novo;
+			this.tamanho = 1;
+		} else {
+			Nodo nodo = this.cabeca;
+			Nodo anterior = null;
+			while (nodo != null) {
+				anterior = nodo;
+				nodo = nodo.get_proximo();
+			}
+			anterior.set_proximo(novo);
+			this.tamanho++;
+		}
+	}
 
-  public int remove_do_fim() {
-    if (this.lista == null) {
-      System.out.printf("Lista não inicializada!\n");
-      return -1;
-    } else if (this.lista.size() == 1) {
-      return this.remove_do_inicio();
-    } else {
-      int i = -1;
-      Nodo atual = null;
-      Nodo proximo = this.lista.get(0);
-      while (proximo != null) {
-        atual = proximo;
-        proximo = proximo.get_proximo();
-        i++;
-      }
-      int valor = atual.get_valor();
-      this.lista.remove(i);
+	public void adiciona_na_posicao(int i, Dado dado) {
+		Nodo novo = new Nodo(dado, null);
+		
+		if (i >= tamanho || i < 0) {
+			System.out.printf("Valor da posição fora do comprimento atual da estrutura de dados!\n");
+		} else if (this.tamanho == 0) {
+			this.cabeca = novo;
+			this.tamanho = 1;
+		} else if (i == 0) {
+			this.adiciona_no_inicio(dado);
+		} else {
+			Nodo nodo = this.cabeca;
+			Nodo anterior = null;
+			for (int j = 0; j < i; j++) {
+				anterior = nodo;
+				nodo = nodo.get_proximo();
+			}
+			novo.set_proximo(nodo);
+			anterior.set_proximo(novo);
+			this.tamanho++;
+		}
+	}
 
-      proximo = this.lista.get(0);
-      for (int j = 1; j <= i; j++) {
-        atual = proximo;
-        proximo = proximo.get_proximo();
-      }
-      atual.set_proximo(null);
-      return valor;
-    }
-  }
+	public Dado remove_do_inicio() {
+		if (this.tamanho == 0) {
+			System.out.printf("Estrutura de dados vazia!\n");
+			return null;
+		} else {
+			Dado dado = this.cabeca.get_dado();
+			this.cabeca = this.cabeca.get_proximo();
+			this.tamanho--;
+			return dado;
+		}
+	}
 
-  public int remove_da_posicao(int i) {
-    if (this.lista == null) {
-      System.out.printf("Lista não inicializada!\n");
-      return -1;
-    } else if (i > this.lista.size() || i < 0) {
-      System.out.printf("Posição fora do comprimento da lista!\n");
-      return -1;
-    } else if (this.lista.size() == 1) {
-      return this.remove_do_inicio();
-    } else {
-      Nodo atual = null;
-      Nodo proximo = this.lista.get(0);
-      for (int j = 1; j <= i; j++) {
-        atual = proximo;
-        proximo = proximo.get_proximo();
-      }
-      Nodo nodo = atual;
-      int valor = nodo.get_valor();
+	public Dado remove_do_fim() {
+		if (this.tamanho < 2) {
+			return this.remove_do_inicio();
+		} else {
+			Nodo nodo = this.cabeca.get_proximo();
+			Nodo anterior = this.cabeca;
+			Nodo anterior_do_anterior = null;
+			while (nodo != null) {
+				anterior_do_anterior = anterior;
+				anterior = nodo;
+				nodo = nodo.get_proximo();
+			}
+			Dado dado = anterior.get_dado();
+			anterior_do_anterior.set_proximo(null);
+			this.tamanho--;
+			return dado;
+		}
+	}
 
-      this.lista.remove(i);
+	public Dado remove_da_posicao(int i) {
+		if (i >= tamanho || i < 0) {
+			System.out.printf("Valor da posição fora do comprimento atual da estrutura de dados!\n");
+			return null;
+		} else if (this.tamanho < 2) {
+			return this.remove_do_inicio();
+		} else if (this.tamanho == i - 1) {
+			return this.remove_do_fim();
+		} else {
+			Nodo nodo = this.cabeca.get_proximo();
+			Nodo anterior = this.cabeca;
+			Nodo anterior_do_anterior = null;
+			for (int j = 0; j < i; j++) {
+				anterior_do_anterior = anterior;
+				anterior = nodo;
+				nodo = nodo.get_proximo();
+			}
+			Dado dado = anterior.get_dado();
+			anterior_do_anterior.set_proximo(nodo);
+			this.tamanho--;
+			return dado;
+		}
+	}
+	
+	public int get_tamanho() {
+		return this.tamanho;
+	}
 
-      proximo = this.lista.get(0);
-      for (int j = 1; j <= i - 1; j++) {
-        atual = proximo;
-        proximo = proximo.get_proximo();
-      }
-
-      atual.set_proximo(nodo.get_proximo());
-      return valor;
-    }
-  }
-
-  public void printa_lista() {
-    if (this.lista == null) {
-      System.out.printf("Lista não inicializada!\n");
-    } else if (this.lista.size() == 0) {
-      System.out.printf("Lista vazia!\n");
-    } else {
-      for (int j = 0; j < this.lista.size(); j++) {
-        Nodo nodo = this.lista.get(j);
-        System.out.printf("%d ", nodo.get_valor());
-      }
-      System.out.printf("\n");
-    }
-  }
+	public void printa() {
+		System.out.printf("\nEstrutura de dados: ");
+		if (this.cabeca == null) {
+			System.out.printf("vazia!\n\n");
+		} else {
+			Nodo nodo = this.cabeca;
+			Dado dado = null;
+			while (nodo != null) {
+				dado = nodo.get_dado();
+				System.out.printf("%d ", dado.get_dado());
+				nodo = nodo.get_proximo();
+			}
+			System.out.printf("\n\n");
+		}
+	}
 }
