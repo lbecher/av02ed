@@ -13,12 +13,17 @@ int main() {
     scanf("%d", &vet[i]);
   }
 
-  ordenacao_shellsort(vet, MAX);
+  if(MAX>1)
+    ordenacao_shellsort(vet, MAX);
 
-  printf("Vetor ordenado: ");
-  for (i = 0; i < MAX; i++) {
-    printf("%d ", vet[i]);
-  }
+  if(MAX<1){
+    printf("Não existem elementos para serem ordenados");
+    }else{
+        printf("Vetor ordenado: ");
+        for (i = 0; i < MAX; i++) {
+          printf("%d ", vet[i]);
+        }
+  };
   
   return 0;
 }
