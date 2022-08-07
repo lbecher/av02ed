@@ -23,3 +23,27 @@ int main() {
   return 0;
 }
 
+void ordenacao_shellsort(int *a, int size) {
+  int i, j, value;
+  int h = 1;
+
+  //define quantas posições h 
+  do {
+    h = 3 * h + 1;
+  } while (h < size);
+
+  // ordena
+  do {
+    h /= 3;
+    for (i = h; i < size; i++) {
+      value = a[i];
+      j = i - h;
+
+      while (j >= 0 && value < a[j]) {
+        a[j + h] = a[j];
+        j -= h;
+      }
+      a[j + h] = value;
+    }
+  } while (h > 1);
+}
