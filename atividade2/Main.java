@@ -6,8 +6,8 @@ class Main {
     Scanner leitor = new Scanner(System.in);
     do {
       System.out.printf("Escolha entre as opções:\n");
-      System.out.printf(" 1. entrar no modo fila\n");
-      System.out.printf(" 2. entrar no modo de teste da lista\n> ");
+      System.out.printf("1. entrar no modo fila\n");
+      System.out.printf("2. entrar no modo de teste da lista\n> ");
       escolha = leitor.nextInt() - 1;
       if (escolha != 0 || escolha != 1) {
         System.out.printf("Opção inválida!");
