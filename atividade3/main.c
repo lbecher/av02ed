@@ -15,10 +15,11 @@ int main() {
 
   ordenacao_shellsort(vet, MAX);
 
-  printf("Vetor ordenado: ");
+  printf("\nVetor ordenado: ");
   for (i = 0; i < MAX; i++) {
     printf("%d ", vet[i]);
   }
+  printf("\n");
 
   return 0;
 }
