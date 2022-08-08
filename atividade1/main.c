@@ -27,7 +27,11 @@ int main() {
         scanf("%d", &v2);
         printf("Qual o peso?\n> ");
         scanf("%f", &peso);
-        insere_aresta(gr, v1, v2, peso);
+        if(v1>(max-1) || v2>(max-1)){
+          printf("Erro!, Vertice não pertence ao conjunto\n");
+        }else{
+          insere_aresta(gr, v1, v2, peso);
+          };
         break;
       case 2:
         imprime(gr);
