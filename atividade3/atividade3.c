@@ -1,32 +1,4 @@
-#include<atividade3.h>
-
-int main() {
-  int i, MAX;
-
-  printf("Quantos valores você deseja armazenar no vetor?\n");
-  scanf("%d", &MAX);
-  int vet[MAX];
-
-  printf("\n");
-  for (i = 0; i < MAX; i++) {
-    printf("Digite o %dº valor: ",i+1);
-    scanf("%d", &vet[i]);
-  }
-
-  if(MAX>1)
-    ordenacao_shellsort(vet, MAX);
-
-  if(MAX<1){
-    printf("Não existem elementos para serem ordenados");
-    }else{
-        printf("Vetor ordenado: ");
-        for (i = 0; i < MAX; i++) {
-          printf("%d ", vet[i]);
-        }
-  };
-  
-  return 0;
-}
+#include "atividade3.h"
 
 void ordenacao_shellsort(int *a, int size) {
   int i, j, h = 1, aux;
