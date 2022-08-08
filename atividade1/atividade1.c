@@ -2,7 +2,6 @@
 
 tipo_grafo *cria(int max) {
   int i;
-  char nome[10];
   tipo_grafo *gr = malloc(sizeof(tipo_grafo));
 
   gr->n_vertices = max;
