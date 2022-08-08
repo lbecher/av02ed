@@ -1,39 +1,76 @@
 #include "atividade1.h"
 
-Grafo cria(int max) {
+tipo_grafo *cria(int max) {
   int i;
-  Grafo gr = malloc(sizeof *gr);
+  char nome[10];
+  tipo_grafo *gr = malloc(sizeof(tipo_grafo));
+
   gr->n_vertices = max;
   gr->n_aresta = 0;
-  gr->conexao = malloc(max * sizeof(no *));
+  gr->vertices = malloc((size_t)(max) * sizeof(tipo_vertice));
+
   for (i = 0; i < max; i++) {
-    gr->conexao[i] = NULL;
+    gr->vertices[i].cabeca = NULL;
   }
+
   return gr;
 }
 
-void insere_conexao(Grafo gr, tipo_vertice vertice1, tipo_vertice vertice2, float peso) {
-  no *p;
-  for (p = gr->conexao[vertice1]; p != NULL; p = p->proximo) {
-    if (p->nome_vertice == vertice2)
-      return;
+void insere_aresta(tipo_grafo *gr, int v1, int v2, float peso) {
+  // cria nova aresta
+  tipo_aresta *nova = malloc(sizeof(tipo_aresta));
+  nova->peso = peso;
+  nova->proxima = NULL;
+  nova->adjacencia = v2;
+
+  tipo_aresta *anterior, *atual = gr->vertices[v1].cabeca;
+
+  if (atual == NULL) {
+    // se lista de arestas não inicializada
+    gr->vertices[v1].cabeca = nova;
+  } else {
+    // senão, busca fim da lista
+    while (atual != NULL) {
+      anterior = atual;
+      if (anterior->adjacencia == v2) {
+        printf("\nConexão já adicionada!\n\n");
+        free(nova);
+        return;
+      }
+      atual = atual->proxima;
+    }
+
+    // coloca nova aresta no fim
+    anterior->proxima = nova;
   }
-  p = malloc(sizeof(no));
-  p->nome_vertice = vertice2;
-  p->peso = peso;
-  p->proximo = gr->conexao[vertice1];
-  gr->conexao[vertice1] = p;
+
+  // incrementa arestas
   gr->n_aresta++;
+
+  printf("\nConexão inserida!\n\n");
 }
 
-void imprime(Grafo gr) {
+void imprime(tipo_grafo *gr) {
   int i;
-  no *p;
-  printf("Numéro total de vértices= %d; número total de conexões: %d \n \n", gr->n_vertices, gr->n_aresta);
+  tipo_aresta *aresta;
+
+  printf("\nNuméro total de vértices: %d\nNúmero total de conexões: %d\n", gr->n_vertices, gr->n_aresta);
+
   for (i = 0; i < gr->n_vertices; i++) {
-    printf("Vertice %d:",i);
-    for (p = gr->conexao[i]; p != NULL; p = p->proximo)
-      printf("- %d (%.2f)", p->nome_vertice, p->peso);
+    printf("\nVértice %d: ", i);
+
+    aresta = gr->vertices[i].cabeca;
+
+    if (aresta != NULL) {
+      printf("%d (%.2f) ", aresta->adjacencia, aresta->peso);
+      aresta = aresta->proxima;
+    }
+
+    while (aresta != NULL) {
+      printf("- %d (%.2f) ", aresta->adjacencia, aresta->peso);
+      aresta = aresta->proxima;
+    }
+
     printf("\n");
   }
 }
