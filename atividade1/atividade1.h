@@ -17,7 +17,6 @@ struct grafo {
   int n_aresta;
 };
 
-Grafo cria(int max) 
-void insere_conexao(Grafo gr, tipo_vertice vertice1, tipo_vertice vertice2, float peso) 
-void imprime(Grafo gr) 
-
+Grafo cria(int max);
+void insere_conexao(Grafo gr, tipo_vertice vertice1, tipo_vertice vertice2, float peso);
+void imprime(Grafo gr);
