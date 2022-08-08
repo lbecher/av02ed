@@ -7,6 +7,10 @@ SRCS = $(shell find . -name '.ccls-cache' -type d -prune -o -type f -name '*.c' 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
 
+T = .
+
+EXE=$(T)/main
+
 %.d: %.c
 	@set -e; rm -f $@; \
 	$(CC) -MM $(CFLAGS) $< > $@.$$$$; \
@@ -25,4 +29,4 @@ clean:
 	rm -f $(OBJS) $(DEPS) main main-debug
 
 run:
-  ./main
+	$(EXE)
