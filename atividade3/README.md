@@ -1,2 +1,2 @@
-# Atividade 3 -algoritmo com o método Shellsort de ordenação
+# Atividade 3 - Algoritmo com o método Shellsort de ordenação
 
