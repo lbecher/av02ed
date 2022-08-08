@@ -1,22 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef int tipo_vertice;
-
-typedef struct vertice no;
-struct vertice {
-  tipo_vertice nome;
-  no *proximo;
+typedef struct Aresta {
+  int *proxima;
+  int adjacencia;
   float peso;
-};
+} tipo_aresta;
 
-typedef struct grafo *Grafo;
-struct grafo {
-  no **conexao;
+typedef struct Vertice {
+  tipo_aresta *cabeca;
+} tipo_vertice;
+
+typedef struct Grafo {
+  tipo_vertice *vertices;
   int n_vertices;
   int n_aresta;
-};
+} tipo_grafo;
 
-Grafo cria(int max);
-void insere_conexao(Grafo gr, tipo_vertice vertice1, tipo_vertice vertice2, float peso);
-void imprime(Grafo gr);
+tipo_grafo *cria(int max);
+void insere_aresta(tipo_grafo *gr, int v1, int v2, float peso);
+void imprime(tipo_grafo *gr);
